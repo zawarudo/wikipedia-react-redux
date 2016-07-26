@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 const renderPages = (pages = []) => pages.map(
   page =>
     <div key={page.id}>
-      <Link to={{ pathname: `pages/${page.id}` }}>
+      <Link to={{ pathname: `page/${page.id}` }}>
         {page.title ? page.title : 'page'}
       </Link>
     </div>
