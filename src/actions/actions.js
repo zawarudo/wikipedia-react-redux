@@ -2,9 +2,10 @@ export const REQUEST_PAGES = 'REQUEST_PAGES';
 export const RECEIVE_PAGES = 'RECEIVE_PAGES';
 export const INVALIDATE_PAGES = 'INVALIDATE_PAGES';
 
+import { Promise } from 'es6-promise';
 import { fetchRandomPages } from '../utils/Wikipedia_API.js';
 
-export function requestPages() {
+export function requestPages(invalidate = false) {
   return (dispatch) => {
     const action = {
       type: REQUEST_PAGES
@@ -12,7 +13,7 @@ export function requestPages() {
 
     dispatch(action);
 
-    getPages()
+    getPages(invalidate)
       .then((json) => dispatch(receivePages(json)));
   }
 }
@@ -31,13 +32,25 @@ export function invalidatePages() {
       type: INVALIDATE_PAGES,
       receivedAt: Date.now()
     };
-
+    const invalidate = true;
     dispatch(action);
 
-    dispatch(requestPages());
+    dispatch(requestPages(invalidate));
   }
 }
 
-export function getPages() {
-  return fetchRandomPages();
+export function getPages(didInvalidate = false) {
+  return new Promise((resolve, reject) => {
+    if(didInvalidate || !localStorage.getItem('pages')) {
+      return fetchRandomPages()
+      .then((pages) => {
+        localStorage.setItem('pages', JSON.stringify(pages))
+        return resolve(pages);
+      });
+    }
+
+    return resolve(
+      JSON.parse(localStorage.getItem('pages'))
+    );
+  });
 }
