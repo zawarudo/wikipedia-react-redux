@@ -5,15 +5,14 @@ export const INVALIDATE_PAGES = 'INVALIDATE_PAGES';
 import { Promise } from 'es6-promise';
 import { fetchRandomPages } from '../utils/Wikipedia_API.js';
 
-export function requestPages(invalidate = false) {
+export function requestPages() {
   return (dispatch) => {
     const action = {
       type: REQUEST_PAGES
     };
 
     dispatch(action);
-
-    getPages(invalidate)
+    getPages()
       .then((json) => dispatch(receivePages(json)));
   }
 }
@@ -32,25 +31,27 @@ export function invalidatePages() {
       type: INVALIDATE_PAGES,
       receivedAt: Date.now()
     };
-    const invalidate = true;
-    dispatch(action);
 
-    dispatch(requestPages(invalidate));
+    dispatch(action);
+    localStorage.setItem('pages', "");
+    dispatch(requestPages());
   }
 }
 
-export function getPages(didInvalidate = false) {
+export function getPages() {
   return new Promise((resolve, reject) => {
-    if(didInvalidate || !localStorage.getItem('pages')) {
+    const pagesSerialized = localStorage.getItem('pages');
+
+    if(!pagesSerialized) {
       return fetchRandomPages()
       .then((pages) => {
-        localStorage.setItem('pages', JSON.stringify(pages))
+        const serialize = JSON.stringify(pages);
+        localStorage.setItem('pages', serialize);
         return resolve(pages);
       });
     }
 
-    return resolve(
-      JSON.parse(localStorage.getItem('pages'))
-    );
+    const pages = JSON.parse(pagesSerialized);
+    return resolve(pages);
   });
 }
