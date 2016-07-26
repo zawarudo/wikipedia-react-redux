@@ -18,13 +18,16 @@ export const fetchRandomPages = () => {
     });
 }
 
-export const getInfoByPageID = (pageIDs, propsList = ['info','images','categories']) => {
+export const getInfoByPageID = (pageID, propsList = ['info','images','categories']) => {
   const prop = toAPICompliantListFromArray(propsList);
   
-  const request = `${BASEURL}&prop=${prop}&inprop=url&format=${FORMAT}&pageids=${pageIDs}`;
+  const request = `${BASEURL}&prop=${prop}&inprop=url&format=${FORMAT}&pageids=${pageID}`;
 
-  fetchJsonp(request)
+  const sliceData = (json) => json.query.pages[pageID];
+
+  return fetchJsonp(request)
     .then(req => req.json())
+    .then(json => sliceData(json))
     .catch(function(e) {
       console.error(e);
       throw new Error('Wikipedia API Failure');
