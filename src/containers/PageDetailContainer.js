@@ -37,7 +37,7 @@ class PageDetailContainer extends Component {
 PageDetailContainer.propTypes = {
   currDetailPage: PropTypes.object,
   params: React.PropTypes.shape({
-    pageID: React.PropTypes.number
+    pageID: React.PropTypes.string
   }),
   dispatch: PropTypes.func
 }
