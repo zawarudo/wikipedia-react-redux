@@ -22,7 +22,7 @@ class PagesContainer extends Component {
   render() {
     const { wikiPages, dispatch } = this.props;
     return (
-      <section>
+      <div className="row text-center">
         <h2>Wiki Pages</h2>
         <div className="row">
           <div className="col-xs-12 center-block">
@@ -39,7 +39,7 @@ class PagesContainer extends Component {
             {renderPages(wikiPages.pages)}
           </div>
         </div>
-      </section>
+      </div>
     );
   }
 }

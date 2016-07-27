@@ -6,11 +6,13 @@ import { unsetBookmark } from '../actions/actions.js';
 class BookmarksContainer extends Component {
   render() {
     return (
-      <div>
-        <h4>
-          Bookmarks
-        </h4>
-        <BookmarksList {...this.props} unsetBookmark={unsetBookmark} />
+      <div className="container">
+        <div className="row text-center">
+          <h2>
+            Bookmarks
+          </h2>
+          <BookmarksList {...this.props} unsetBookmark={unsetBookmark} />
+        </div>
       </div>
     )
   }
