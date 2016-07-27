@@ -16,14 +16,14 @@ class PageDetailContainer extends Component {
   }
 
   render() {
-    const { currDetailPage } = this.props;
+    const { currDetailPage, bookmarks } = this.props;
     return (
       <div>
         {
           currDetailPage ?
             <div>
               <PageDetail {...currDetailPage} />
-              <BookmarkButton currPage={currDetailPage} />
+              <BookmarkButton currPage={currDetailPage} bookmarks={ bookmarks }/>
             </div>
           :
             <span className="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
@@ -43,6 +43,7 @@ PageDetailContainer.propTypes = {
 
 const mapStateToProps = (state) => ({
   currDetailPage: state.pageDetail.currDetailPage,
+  bookmarks: state.bookmarks
 })
 
 export default connect(mapStateToProps)(PageDetailContainer);

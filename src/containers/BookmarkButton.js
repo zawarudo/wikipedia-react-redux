@@ -1,20 +1,39 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { setBookmark } from '../actions/actions.js';
+import { setBookmark, unsetBookmark } from '../actions/actions.js';
 
 class BookmarkButton extends Component {
   render() {
-    const { dispatch, currPage } = this.props;
-    return (
-      <div>
-        <button
-          className="btn-primary center-block"
-          onClick={() => { dispatch(setBookmark(currPage)) }}>
-          <span className="glyphicon glyphicon-heart"></span>{' '}
-          Bookmark This!
-        </button>
-      </div>
-    )
+    const { currPage, bookmarks, dispatch } = this.props;
+    const showAddBookmark = bookmarks.filter((bookmark) =>
+                            bookmark.pageid == currPage.pageid
+                          ).length == 0;
+
+    if(showAddBookmark) {
+      // Show bookmark setter button
+      return (
+        <div>
+          <button
+            className="btn-primary center-block"
+            onClick={() => { dispatch(setBookmark(currPage)) }}>
+            <span className="glyphicon glyphicon-heart"></span>{' '}
+            Bookmark This!
+          </button>
+        </div>
+      )
+    } else {
+      // Show bookmark unsetter button
+      return (
+        <div>
+          <button
+            className="btn-danger center-block"
+            onClick={() => { dispatch(unsetBookmark(currPage)) }}>
+            <span className="glyphicon glyphicon-remove"></span>{' '}
+            Remove Bookmark!
+          </button>
+        </div>
+      )
+    }
   }
 }
 
