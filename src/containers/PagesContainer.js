@@ -23,14 +23,21 @@ class PagesContainer extends Component {
     const { wikiPages, dispatch } = this.props;
     return (
       <section>
-        <div 
-          className="btn btn-primary" 
-          onClick={() => dispatch(invalidatePages())}
-        >
-          Get random pages
+        <h2>Wiki Pages</h2>
+        <div className="row">
+          <div className="col-xs-12 center-block">
+            <button
+              className="btn btn-primary"
+              onClick={() => dispatch(invalidatePages())}
+            >
+              Get Random Pages
+            </button>
+          </div>
         </div>
-        <div>
-          {renderPages(wikiPages.pages)}
+        <div className="row">
+          <div className="col-xs-12">
+            {renderPages(wikiPages.pages)}
+          </div>
         </div>
       </section>
     );
