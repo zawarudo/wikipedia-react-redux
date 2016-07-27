@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { requestPageDetails, unsetDetailPage } from '../actions/actions.js';
 import PageDetail from '../components/PageDetail.js';
+import BookmarkButton from '../containers/BookmarkButton.js'
+
 
 class PageDetailContainer extends Component {
   componentWillMount() {
@@ -18,9 +20,14 @@ class PageDetailContainer extends Component {
     const { currDetailPage } = this.props;
     return (
       <div>
-        {currDetailPage
-          ? <PageDetail {...currDetailPage} />
-          : <span className="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+        {currDetailPage ?
+            <div>
+              <PageDetail {...currDetailPage} />
+              <BookmarkButton currPage={currDetailPage} />
+            </div>
+          :
+            <span className="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+
         }
       </div>
     );
@@ -28,11 +35,11 @@ class PageDetailContainer extends Component {
 }
 
 PageDetailContainer.propTypes = {
-  currDetailPage: PropTypes.object.isRequired,
+  currDetailPage: PropTypes.object,
   params: React.PropTypes.shape({
-    pageID: React.PropTypes.number.isRequired
+    pageID: React.PropTypes.number
   }),
-  dispatch: PropTypes.func.isRequired
+  dispatch: PropTypes.func
 }
 
 const mapStateToProps = (state) => ({

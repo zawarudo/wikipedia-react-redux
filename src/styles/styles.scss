@@ -5,10 +5,10 @@ $vin-red: #ff0000;
 
 /* Styles */
 body {
+  background: #f1f1f1;
   font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
   line-height: 1.4em;
   color: #4d4d4d;
-  margin: 0 auto;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   font-smoothing: antialiased;
@@ -41,4 +41,18 @@ td.fuel-savings-label { width: 175px; }
 @keyframes spin {
     from { transform: scale(1) rotate(0deg);}
     to { transform: scale(1) rotate(360deg);}
+}
+
+.detail-page {
+  margin: 10px 0px;
+
+  .detail-img-container {
+    height: 500px;
+  }
+  .categories-container {
+    .category-item {
+      margin: 10px 0px;
+    }
+  }
+
 }

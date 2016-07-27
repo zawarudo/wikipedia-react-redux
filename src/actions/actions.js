@@ -8,8 +8,11 @@ export const RECEIVE_PAGE_DETAILS = 'RECEIVE_PAGE_DETAILS';
 export const SET_DETAIL_PAGE = 'SET_DETAIL_PAGE';
 export const UNSET_DETAIL_PAGE = 'UNSET_DETAIL_PAGE';
 
+export const SET_BOOKMARK = 'SET_BOOKMARK';
+export const UNSET_BOOKMARK = 'UNSET_BOOKMARK';
+
 import { Promise } from 'es6-promise';
-import { fetchRandomPages, getInfoByPageID } from '../utils/Wikipedia_API.js';
+import { fetchRandomPages, getInfoByPageID, hydrateDetailPageImages } from '../utils/Wikipedia_API.js';
 
 export function requestPages() {
   return (dispatch) => {
@@ -70,10 +73,42 @@ export function requestPageDetails(pageID) {
     };
 
     dispatch(action);
+
+    // TODO: add localstorage caching here
     getPageDetails(pageID)
-      .then((json) => {
-          dispatch(receivePageDetails(json));
-          dispatch(setDetailPage(json[pageID]));
+      .then((wikiPages) => {
+          let currDetailPage = wikiPages[pageID];
+          let images = currDetailPage.images;
+
+          if(!images) {
+              dispatchUpdates(wikiPages, currDetailPage)
+          } else {
+            return fetchImageDataAndUpdateState();
+          }
+
+          // Fetches the image URLs and dispatches to render the PageDetail view.
+          function fetchImageDataAndUpdateState() {
+
+            const titleList = images.reduce((newList, img) => [...newList, img.title], []);
+
+            hydrateDetailPageImages(titleList, currDetailPage).then(function(detailPage) {
+
+              // Update wiki page from our in memory list
+              wikiPages[pageID] = detailPage;
+
+              // Dispatch our pages list update and set data for the current detail view
+              dispatchUpdates(wikiPages, wikiPages[pageID]);
+
+            }).catch((e) => {
+              console.error('Failed to hydrate image info on details page', e);
+              dispatchUpdates(wikiPages, wikiPages[pageID]);
+            });
+          }
+
+          function dispatchUpdates(wikiPages, currDetailPage) {
+            dispatch(receivePageDetails(wikiPages));
+            dispatch(setDetailPage(currDetailPage));
+          }
         }
       );
   }
@@ -112,7 +147,6 @@ export function receivePageDetails(details) {
   }
 }
 
-
 export function getPageDetails(id) {
   return new Promise((resolve) => {
     const detailsSerialized = localStorage.getItem('pageDetails');
@@ -135,4 +169,26 @@ export function getPageDetails(id) {
     detailsContainer = JSON.parse(detailsSerialized);
     return resolve(detailsContainer);
   });
+}
+
+export function setBookmark(newPage) {
+  return (dispatch) => {
+    const action = {
+      type: SET_BOOKMARK,
+      newBookmark: newPage
+    };
+
+    dispatch(action);
+  }
+}
+
+export function unsetBookmark(page) {
+  return (dispatch) => {
+    const action = {
+      type: UNSET_BOOKMARK,
+      page,
+    };
+
+    dispatch(action);
+  }
 }

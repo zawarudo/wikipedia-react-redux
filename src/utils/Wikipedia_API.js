@@ -43,13 +43,35 @@ export const getInfoByPageID = (pageID, propsList = ['info','images','categories
     });
 }
 
-export const getImageInfoByTitles = (titlesList, imgWidth = 500) => {
-  const titles = toAPICompliantListFromArray(titlesList);
+// Replaces images array on the detail page data
+export const hydrateDetailPageImages = (titlesToFetch, detailPage) => {
+  return getImageInfoByTitles(titlesToFetch).then((imagesObj) => {
+    let images = [];
+    const isObject = typeof imagesObj === "object";
 
-  const request = `${BASEURL}&prop=imageinfo&iiprop=url&iiurlwidth=${imgWidth}&format=${FORMAT}&titles=${titles}}`;
+    if(isObject) {
+      // Convert data from obj to array
+      images = Object.keys(imagesObj).map(key => imagesObj[key]);
+    } else {
+      console.error('Unexpected API response fetching images', titlesToFetch);
+    }
 
-  fetchJsonp(request)
+    return {
+      ...detailPage,
+      images
+    }
+  })
+}
+
+export const getImageInfoByTitles = (titlesList, imgWidth = 250) => {
+  const titles = encodeURI(toAPICompliantListFromArray(titlesList));
+
+  const request = `${BASEURL}&prop=imageinfo&iiprop=url&iiurlwidth=${imgWidth}&format=${FORMAT}&titles=${titles}`;
+  const sliceImageDetails = (json) => json.query.pages;
+
+  return fetchJsonp(request)
     .then(req => req.json())
+    .then(json => sliceImageDetails(json))
     .catch(function(e) {
       console.error(e);
       throw new Error('Wikipedia API Failure');
