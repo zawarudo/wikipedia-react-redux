@@ -1,30 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { requestPages, invalidatePages } from '../actions/actions.js';
-import { Link } from 'react-router';
+import List from '../components/List';
 
-const renderPages = (pages) => {
-  if(!pages.length) { return undefined; }
-
-  return (
-    <ul className="list-group">
-    {pages.map(
-      page =>
-        <Link to={{ pathname: `page/${page.id}` }}>
-          <li
-            className="list-group-item"
-            key={page.id}
-          >
-            <b>
-              {page.title ? page.title : 'page'}
-            </b>
-            <span className="glyphicon glyphicon-chevron-right pull-right"></span>
-          </li>
-        </Link>
-    )}
-    </ul>
-  )
-}
 class PagesContainer extends Component {
 
   componentDidMount() {
@@ -48,8 +26,8 @@ class PagesContainer extends Component {
           </div>
         </div>
         <div className="row">
-          <div className="col-xs-12">
-            {renderPages(wikiPages.pages)}
+          <div className="pages-container">
+            <List items={wikiPages.pages}/>
           </div>
         </div>
       </div>
