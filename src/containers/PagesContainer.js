@@ -12,6 +12,21 @@ class PagesContainer extends Component {
 
   render() {
     const { wikiPages, dispatch } = this.props;
+
+    const modifyPagesToList = (wikiPages) => {
+      const { pages } = wikiPages;
+      if(!pages) { return }
+
+      // Set pathname param
+      const pathname = (page) => ({ ...page, pathname: `/page/${page.id}` });
+      // Set content param
+      const content = (page) => ({ ...page, content: page.title });
+
+      return pages
+              .map(pathname)
+              .map(content);
+    }
+
     return (
       <div className="row text-center">
         <h2>Wiki Pages</h2>
@@ -28,7 +43,7 @@ class PagesContainer extends Component {
         </div>
         <div className="row">
           <div className="pages-container">
-            <List items={wikiPages.pages}/>
+            <List items={modifyPagesToList(wikiPages)}/>
           </div>
         </div>
       </div>
