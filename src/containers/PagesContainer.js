@@ -1,16 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { requestPages, invalidatePages } from '../actions/actions.js';
-import { Link } from 'react-router';
-
-const renderPages = (pages = []) => pages.map(
-  page =>
-    <div key={page.id}>
-      <Link to={{ pathname: `page/${page.id}` }}>
-        {page.title ? page.title : 'page'}
-      </Link>
-    </div>
-)
+import { requestPages, invalidatePages } from '../actions/actions';
+import List from '../components/List';
 
 class PagesContainer extends Component {
 
@@ -21,18 +12,48 @@ class PagesContainer extends Component {
 
   render() {
     const { wikiPages, dispatch } = this.props;
+
+    const modifyPagesToList = (wikiPages) => {
+      const { pages } = wikiPages;
+      if(!pages) { return }
+
+      // Set pathname param
+      const pathname = (page) => ({ ...page, pathname: `/page/${page.id}` });
+      // Set content param
+      const content = (page) => ({ ...page, content: page.title });
+
+      const postItemsCreator = (item) => (
+        <span className="glyphicon glyphicon-chevron-right pull-right"></span>
+      );
+
+      const postItems = (item) => ({ ...item, postItems: postItemsCreator(item)});
+
+      return pages
+              .map(pathname)
+              .map(content)
+              .map(postItems);
+    }
+
     return (
-      <section>
-        <div 
-          className="btn btn-primary" 
-          onClick={() => dispatch(invalidatePages())}
-        >
-          Get random pages
+      <div className="row text-center">
+        <h2>Wiki Pages</h2>
+        <hr />
+        <div className="row">
+          <div className="col-xs-12 center-block">
+            <button
+              className="btn btn-primary"
+              onClick={() => dispatch(invalidatePages())}
+            >
+              Get Random Pages
+            </button>
+          </div>
         </div>
-        <div>
-          {renderPages(wikiPages.pages)}
+        <div className="row">
+          <div className="pages-container">
+            <List items={modifyPagesToList(wikiPages)}/>
+          </div>
         </div>
-      </section>
+      </div>
     );
   }
 }

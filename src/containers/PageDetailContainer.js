@@ -1,8 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { requestPageDetails, unsetDetailPage } from '../actions/actions.js';
-import PageDetail from '../components/PageDetail.js';
-import BookmarkButton from '../containers/BookmarkButton.js'
+import { requestPageDetails, unsetDetailPage } from '../actions/actions';
+import PageDetail from '../components/PageDetail';
+import BookmarkButton from '../containers/BookmarkButton';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 class PageDetailContainer extends Component {
   componentWillMount() {
@@ -23,10 +24,10 @@ class PageDetailContainer extends Component {
           currDetailPage ?
             <div>
               <PageDetail {...currDetailPage} />
-              <BookmarkButton currPage={currDetailPage} bookmarks={ bookmarks }/>
+              <BookmarkButton currPage={currDetailPage} bookmarks={bookmarks}/>
             </div>
           :
-            <span className="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+            <LoadingSpinner/>
         }
       </div>
     );
@@ -36,7 +37,7 @@ class PageDetailContainer extends Component {
 PageDetailContainer.propTypes = {
   currDetailPage: PropTypes.object,
   params: React.PropTypes.shape({
-    pageID: React.PropTypes.number
+    pageID: React.PropTypes.string
   }),
   dispatch: PropTypes.func
 }

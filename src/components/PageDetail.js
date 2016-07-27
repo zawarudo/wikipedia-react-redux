@@ -1,40 +1,51 @@
 import React, {PropTypes} from 'react';
 
 const PageDetail = (props) => {
-  const { title = "NO TITLE", categories = [{}], images = [{}] } = props;
+  const { title, categories, images } = props;
 
   const renderCategories = (categories) =>
     categories.map((category) =>
-      <div className="well col-xs-12 col-md-4 text-center category-item">
-        <span className="label label-info">
-          <span key={category.title}>{category.title}</span>
-        </span>
+      <div
+        className="well col-xs-12 col-md-4 text-center category-item"
+        key={category.title}
+      >
+        <h6>{category.title}</h6>
       </div>
     );
 
-  const renderImages = (images) =>
-    images.map((image) =>
-      <div className="col-xs-12 col-md-4">
+  const renderImages = (images) => {
+    if(!images) { return undefined; }
+
+    return images.map((image) =>
+      <div
+        className="detail-img-container col-xs-12 col-md-4"
+        key={image.title}
+        >
         <span
           className="label label-default col-xs-12 text-center"
-          key={image.title}
           >
           {image.title}
         </span>
-        <div className="well col-xs-12 detail-img-container">
-          <a href={image.imageinfo[0].url} target='_blank'>
+        { image.imageinfo ?
+        <div className="well col-xs-12 detail-img">
+          <a href={image.imageinfo.url} target="_blank">
             <img
               className="img-responsive center-block detail-img"
-              src={image.imageinfo[0].thumburl}
+              src={image.imageinfo.thumburl}
               alt={image.title} />
           </a>
         </div>
+        :
+          undefined
+        }
       </div>
     );
+  }
 
   return (
     <div className="container detail-page">
       <h2 className="row text-center">{title}</h2>
+      <hr />
       <div className="row">
         {renderImages(images)}
       </div>

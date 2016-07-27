@@ -1,10 +1,9 @@
 import React from 'react';
-import PagesContainer from '../containers/PagesContainer.js';
+import PagesContainer from '../containers/PagesContainer';
 
 const HomePage = () => {
   return (
     <div>
-      <h2>Pages</h2>
       <PagesContainer />
     </div>
   );

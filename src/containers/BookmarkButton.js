@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { setBookmark, unsetBookmark } from '../actions/actions.js';
+import { setBookmark, unsetBookmark } from '../actions/actions';
 
 class BookmarkButton extends Component {
   render() {
     const { currPage, bookmarks, dispatch } = this.props;
+
     const showAddBookmark = bookmarks.filter((bookmark) =>
                             bookmark.pageid == currPage.pageid
                           ).length == 0;
@@ -12,7 +13,7 @@ class BookmarkButton extends Component {
     if(showAddBookmark) {
       // Show bookmark setter button
       return (
-        <div>
+        <div className="bookmark-btn-container">
           <button
             className="btn-primary center-block"
             onClick={() => { dispatch(setBookmark(currPage)) }}>
@@ -24,7 +25,7 @@ class BookmarkButton extends Component {
     } else {
       // Show bookmark unsetter button
       return (
-        <div>
+        <div className="bookmark-btn-container">
           <button
             className="btn-danger center-block"
             onClick={() => { dispatch(unsetBookmark(currPage)) }}>
