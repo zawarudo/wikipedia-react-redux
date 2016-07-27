@@ -9,16 +9,14 @@ const PageDetail = (props) => {
         className="well col-xs-12 col-md-4 text-center category-item"
         key={category.title}
       >
-        <span className="label label-info">
-          <span>{category.title}</span>
-        </span>
+        <h6>{category.title}</h6>
       </div>
     );
 
   const renderImages = (images) =>
     images.map((image) =>
       <div
-        className="col-xs-12 col-md-4"
+        className="detail-img-container col-xs-12 col-md-4"
         key={image.title}
         >
         <span
@@ -26,7 +24,7 @@ const PageDetail = (props) => {
           >
           {image.title}
         </span>
-        <div className="well col-xs-12 detail-img-container">
+        <div className="well col-xs-12 detail-img">
           <a href={image.imageinfo.url} target="_blank">
             <img
               className="img-responsive center-block detail-img"

@@ -13,7 +13,7 @@ class BookmarkButton extends Component {
     if(showAddBookmark) {
       // Show bookmark setter button
       return (
-        <div>
+        <div className="bookmark-btn-container">
           <button
             className="btn-primary center-block"
             onClick={() => { dispatch(setBookmark(currPage)) }}>
@@ -25,7 +25,7 @@ class BookmarkButton extends Component {
     } else {
       // Show bookmark unsetter button
       return (
-        <div>
+        <div className="bookmark-btn-container">
           <button
             className="btn-danger center-block"
             onClick={() => { dispatch(unsetBookmark(currPage)) }}>

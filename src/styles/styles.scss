@@ -47,12 +47,20 @@ td.fuel-savings-label { width: 175px; }
   margin-bottom: 50px;
 
   .detail-img-container {
-    min-height: 200px;
+    margin-top: 10px;
+
+    .detail-img {
+      min-height: 200px;
+    }
   }
+
   .categories-container {
     .category-item {
       margin: 10px 0px;
     }
   }
+}
 
+.bookmark-btn-container {
+  margin-bottom: 50px;
 }
