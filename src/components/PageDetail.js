@@ -26,6 +26,7 @@ const PageDetail = (props) => {
           >
           {image.title}
         </span>
+        { image.imageinfo ?
         <div className="well col-xs-12 detail-img">
           <a href={image.imageinfo.url} target="_blank">
             <img
@@ -34,6 +35,9 @@ const PageDetail = (props) => {
               alt={image.title} />
           </a>
         </div>
+        :
+          undefined
+        }
       </div>
     );
   }
