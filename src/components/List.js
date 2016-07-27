@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import LoadingSpinner from './LoadingSpinner';
 
 const List = (props) => {
-  const { items } = props;
+  const { items, postItems } = props;
   if(!items || !items.length) { return <LoadingSpinner />; }
 
   return (
@@ -21,7 +21,7 @@ const List = (props) => {
               <b>
                 {item.content ? item.content : 'No Content'}
               </b>
-              <span className="glyphicon glyphicon-chevron-right pull-right"></span>
+              {item.postItems}
             </li>
           </Link>
       )}
