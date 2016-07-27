@@ -23,7 +23,7 @@ class PageDetailContainer extends Component {
           currDetailPage ?
             <div>
               <PageDetail {...currDetailPage} />
-              <BookmarkButton currPage={currDetailPage} bookmarks={ bookmarks }/>
+              <BookmarkButton currPage={currDetailPage} bookmarks={bookmarks}/>
             </div>
           :
             <span className="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>

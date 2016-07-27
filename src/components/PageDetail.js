@@ -5,24 +5,29 @@ const PageDetail = (props) => {
 
   const renderCategories = (categories) =>
     categories.map((category) =>
-      <div className="well col-xs-12 col-md-4 text-center category-item">
+      <div
+        className="well col-xs-12 col-md-4 text-center category-item"
+        key={category.title}
+      >
         <span className="label label-info">
-          <span key={category.title}>{category.title}</span>
+          <span>{category.title}</span>
         </span>
       </div>
     );
 
   const renderImages = (images) =>
     images.map((image) =>
-      <div className="col-xs-12 col-md-4">
+      <div
+        className="col-xs-12 col-md-4"
+        key={image.title}
+        >
         <span
           className="label label-default col-xs-12 text-center"
-          key={image.title}
           >
           {image.title}
         </span>
         <div className="well col-xs-12 detail-img-container">
-          <a href={image.imageinfo[0].url} target='_blank'>
+          <a href={image.imageinfo[0].url} target="_blank">
             <img
               className="img-responsive center-block detail-img"
               src={image.imageinfo[0].thumburl}
