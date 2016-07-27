@@ -12,7 +12,9 @@ class BookmarksContainer extends Component {
             Bookmarks
           </h2>
           <hr />
-          <BookmarksList {...this.props} unsetBookmark={unsetBookmark} />
+          <div className="bookmarks-container">
+            <BookmarksList {...this.props} unsetBookmark={unsetBookmark} />
+          </div>
         </div>
       </div>
     )
