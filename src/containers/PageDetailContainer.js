@@ -19,14 +19,14 @@ class PageDetailContainer extends Component {
     const { currDetailPage } = this.props;
     return (
       <div>
-        {currDetailPage ?
+        {
+          currDetailPage ?
             <div>
               <PageDetail {...currDetailPage} />
               <BookmarkButton currPage={currDetailPage} />
             </div>
           :
             <span className="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
-
         }
       </div>
     );
