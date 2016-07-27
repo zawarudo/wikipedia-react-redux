@@ -22,7 +22,9 @@ class PagesContainer extends Component {
       // Set content param
       const content = (page) => ({ ...page, content: page.title });
 
-      const postItemsCreator = (item) => <span className="glyphicon glyphicon-chevron-right pull-right"></span>;
+      const postItemsCreator = (item) => (
+        <span className="glyphicon glyphicon-chevron-right pull-right"></span>
+      );
 
       const postItems = (item) => ({ ...item, postItems: postItemsCreator(item)});
 
