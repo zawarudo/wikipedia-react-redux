@@ -5,6 +5,7 @@ import { setBookmark, unsetBookmark } from '../actions/actions.js';
 class BookmarkButton extends Component {
   render() {
     const { currPage, bookmarks, dispatch } = this.props;
+
     const showAddBookmark = bookmarks.filter((bookmark) =>
                             bookmark.pageid == currPage.pageid
                           ).length == 0;
