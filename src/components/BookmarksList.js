@@ -2,15 +2,14 @@ import React, {PropTypes} from 'react';
 import { Link } from 'react-router';
 
 const BookmarksList = (props) => {
-  const { bookmarks } = props;
-  console.log(bookmarks);
+  const { bookmarks, unsetBookmark, dispatch } = props;
   if(!bookmarks || !bookmarks.length) {
     return <div>No Bookmarks Here!</div>
   } else {
     return (
       <div>
         { bookmarks.map((bookmark) =>
-          <div>
+          <div key={bookmark.pageid}>
             <Link
               to={`/page/${bookmark.pageid}`}
             >
@@ -22,6 +21,7 @@ const BookmarksList = (props) => {
               href="#"
               onClick={(e) => {
                 e.preventDefault();
+                dispatch(unsetBookmark(bookmark))
               }}
             >
               {' '}

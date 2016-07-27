@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import BookmarksList from '../components/BookmarksList';
+import { unsetBookmark } from '../actions/actions.js';
 
 class BookmarksContainer extends Component {
   render() {
@@ -9,7 +10,7 @@ class BookmarksContainer extends Component {
         <h4>
           Bookmarks
         </h4>
-        <BookmarksList {...this.props} />
+        <BookmarksList {...this.props} unsetBookmark={unsetBookmark} />
       </div>
     )
   }

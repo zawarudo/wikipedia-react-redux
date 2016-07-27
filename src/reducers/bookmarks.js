@@ -11,7 +11,7 @@ export default function BookmarksReducer(state = [], action) {
         action.newBookmark
       ]
     case UNSET_BOOKMARK:
-      return state.filter(page => page.id != action.page.id)
+      return state.filter(page => page.pageid != action.page.pageid)
     default:
       return state;
   }
