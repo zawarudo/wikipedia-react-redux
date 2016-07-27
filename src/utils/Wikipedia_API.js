@@ -23,11 +23,20 @@ export const getInfoByPageID = (pageID, propsList = ['info','images','categories
   
   const request = `${BASEURL}&prop=${prop}&inprop=url&format=${FORMAT}&pageids=${pageID}`;
 
-  const sliceData = (json) => json.query.pages[pageID];
+  const slicePages = (json) => json.query.pages[pageID];
+
+  const stripCategoryTags = (json) => ({
+    ...json,
+    categories: json.categories.map(category => ({
+      ...category,
+      title: category.title.replace(/^Category:/, '')
+    }))
+  });
 
   return fetchJsonp(request)
     .then(req => req.json())
-    .then(json => sliceData(json))
+    .then(json => slicePages(json))
+    .then(json => stripCategoryTags(json))
     .catch(function(e) {
       console.error(e);
       throw new Error('Wikipedia API Failure');
