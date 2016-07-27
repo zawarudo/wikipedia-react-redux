@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 
 const PageDetail = (props) => {
-  const { title = "NO TITLE", categories = [{}], images = [{}] } = props;
+  const { title, categories, images } = props;
 
   const renderCategories = (categories) =>
     categories.map((category) =>
@@ -13,8 +13,10 @@ const PageDetail = (props) => {
       </div>
     );
 
-  const renderImages = (images) =>
-    images.map((image) =>
+  const renderImages = (images) => {
+    if(!images) { return undefined; }
+
+    return images.map((image) =>
       <div
         className="detail-img-container col-xs-12 col-md-4"
         key={image.title}
@@ -34,6 +36,7 @@ const PageDetail = (props) => {
         </div>
       </div>
     );
+  }
 
   return (
     <div className="container detail-page">
