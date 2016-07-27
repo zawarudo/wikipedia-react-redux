@@ -52,6 +52,8 @@ export const hydrateDetailPageImages = (titlesToFetch, detailPage) => {
     if(isObject) {
       // Convert data from obj to array
       images = Object.keys(imagesObj).map(key => imagesObj[key]);
+      // Remove one unnecessary level of nesting
+      images.map((image) => { image.imageinfo = image.imageinfo[0]; });
     } else {
       console.error('Unexpected API response fetching images', titlesToFetch);
     }

@@ -27,10 +27,10 @@ const PageDetail = (props) => {
           {image.title}
         </span>
         <div className="well col-xs-12 detail-img-container">
-          <a href={image.imageinfo[0].url} target="_blank">
+          <a href={image.imageinfo.url} target="_blank">
             <img
               className="img-responsive center-block detail-img"
-              src={image.imageinfo[0].thumburl}
+              src={image.imageinfo.thumburl}
               alt={image.title} />
           </a>
         </div>
