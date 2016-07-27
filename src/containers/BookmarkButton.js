@@ -3,10 +3,6 @@ import { connect } from 'react-redux';
 import { setBookmark } from '../actions/actions.js';
 
 class BookmarkButton extends Component {
-  componentWillMount(props) {
-    console.log(this,this.props.params);
-  }
-
   render() {
     const { dispatch, currPage } = this.props;
     return (
@@ -15,7 +11,7 @@ class BookmarkButton extends Component {
           className="btn-primary center-block"
           onClick={() => { dispatch(setBookmark(currPage)) }}>
           <span className="glyphicon glyphicon-heart"></span>{' '}
-            Bookmark This!
+          Bookmark This!
         </button>
       </div>
     )
