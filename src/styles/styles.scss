@@ -10,6 +10,10 @@ body {
   font-weight: 300;
 }
 
+hr {
+    border-top: 1px solid #949494;
+}
+
 .glyphicon-refresh-animate {
     -animation: spin .7s infinite linear;
     -webkit-animation: spin2 .7s infinite linear;

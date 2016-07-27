@@ -41,6 +41,7 @@ const PageDetail = (props) => {
   return (
     <div className="container detail-page">
       <h2 className="row text-center">{title}</h2>
+      <hr />
       <div className="row">
         {renderImages(images)}
       </div>

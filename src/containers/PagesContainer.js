@@ -15,6 +15,7 @@ class PagesContainer extends Component {
     return (
       <div className="row text-center">
         <h2>Wiki Pages</h2>
+        <hr />
         <div className="row">
           <div className="col-xs-12 center-block">
             <button
