@@ -1,5 +1,7 @@
 # Wikipedia powered react-redux client
 
+## Live Demo [Here](https://zawarudo.github.io/wikipedia-react-redux/)
+
 ## Get Started
 1. **Initial Machine Setup**. First time running the starter kit? Then complete the [Initial Machine Setup](https://github.com/coryhouse/react-slingshot#initial-machine-setup).
 2. **Clone the project**. `git clone https://github.com/zawarudo/wikipedia-react-redux.git`.
