@@ -4,7 +4,6 @@ import { requestPageDetails, unsetDetailPage } from '../actions/actions.js';
 import PageDetail from '../components/PageDetail.js';
 import BookmarkButton from '../containers/BookmarkButton.js'
 
-
 class PageDetailContainer extends Component {
   componentWillMount() {
     const {dispatch} = this.props;
