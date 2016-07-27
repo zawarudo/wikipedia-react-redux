@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import { requestPages, invalidatePages } from '../actions/actions.js';
 import { Link } from 'react-router';
 
-const renderPages = (pages = []) => {
+const renderPages = (pages) => {
+  if(!pages.length) { return undefined; }
+
   return (
     <ul className="list-group">
     {pages.map(
