@@ -11,14 +11,15 @@ const List = (props) => {
       {items.map(
         item =>
           <Link
-            to={{ pathname: `page/${item.id}` }}
+            to={{ pathname: item.pathname }}
             key={item.id}
+            onClick={item.onClick}
           >
             <li
               className="list-group-item"
             >
               <b>
-                {item.title ? item.title : 'No Title'}
+                {item.content ? item.content : 'No Content'}
               </b>
               <span className="glyphicon glyphicon-chevron-right pull-right"></span>
             </li>
