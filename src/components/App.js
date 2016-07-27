@@ -1,13 +1,10 @@
 import React, { PropTypes } from 'react';
-import { Link, IndexLink } from 'react-router';
+import Header from './Header.js';
 
 const App = (props) => {
   return (
     <div>
-      <IndexLink to="/">Home</IndexLink>
-      {' | '}
-      <Link to="/bookmarks">Bookmarks</Link>
-
+      <Header />
       {props.children}
     </div>
   );
