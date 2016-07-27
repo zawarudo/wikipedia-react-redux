@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import LoadingSpinner from './LoadingSpinner';
 
 const List = (props) => {
-  const {items} = props;
+  const { items } = props;
   if(!items || !items.length) { return <LoadingSpinner />; }
 
   return (
