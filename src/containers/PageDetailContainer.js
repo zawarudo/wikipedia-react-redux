@@ -2,7 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { requestPageDetails, unsetDetailPage } from '../actions/actions.js';
 import PageDetail from '../components/PageDetail.js';
-import BookmarkButton from '../containers/BookmarkButton.js'
+import BookmarkButton from '../containers/BookmarkButton.js';
+import LoadingSpinner from '../components/LoadingSpinner.js';
 
 class PageDetailContainer extends Component {
   componentWillMount() {
@@ -26,7 +27,7 @@ class PageDetailContainer extends Component {
               <BookmarkButton currPage={currDetailPage} bookmarks={bookmarks}/>
             </div>
           :
-            <span className="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+            <LoadingSpinner/>
         }
       </div>
     );
