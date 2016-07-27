@@ -12,7 +12,7 @@ export const SET_BOOKMARK = 'SET_BOOKMARK';
 export const UNSET_BOOKMARK = 'UNSET_BOOKMARK';
 
 import { Promise } from 'es6-promise';
-import { fetchRandomPages, getInfoByPageID, hydrateDetailPageImages } from '../utils/Wikipedia_API.js';
+import { fetchRandomPages, getInfoByPageID, hydrateDetailPageImages } from '../utils/Wikipedia_API';
 
 export function requestPages() {
   return (dispatch) => {

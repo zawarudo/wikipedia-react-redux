@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { requestPageDetails, unsetDetailPage } from '../actions/actions.js';
-import PageDetail from '../components/PageDetail.js';
-import BookmarkButton from '../containers/BookmarkButton.js';
-import LoadingSpinner from '../components/LoadingSpinner.js';
+import { requestPageDetails, unsetDetailPage } from '../actions/actions';
+import PageDetail from '../components/PageDetail';
+import BookmarkButton from '../containers/BookmarkButton';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 class PageDetailContainer extends Component {
   componentWillMount() {

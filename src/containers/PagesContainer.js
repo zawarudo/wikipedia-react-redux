@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { requestPages, invalidatePages } from '../actions/actions.js';
+import { requestPages, invalidatePages } from '../actions/actions';
 import List from '../components/List';
 
 class PagesContainer extends Component {
