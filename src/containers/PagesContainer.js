@@ -3,15 +3,26 @@ import { connect } from 'react-redux';
 import { requestPages, invalidatePages } from '../actions/actions.js';
 import { Link } from 'react-router';
 
-const renderPages = (pages = []) => pages.map(
-  page =>
-    <div key={page.id}>
-      <Link to={{ pathname: `page/${page.id}` }}>
-        {page.title ? page.title : 'page'}
-      </Link>
-    </div>
-)
-
+const renderPages = (pages = []) => {
+  return (
+    <ul className="list-group">
+    {pages.map(
+      page =>
+        <Link to={{ pathname: `page/${page.id}` }}>
+          <li
+            className="list-group-item"
+            key={page.id}
+          >
+            <b>
+              {page.title ? page.title : 'page'}
+            </b>
+            <span className="glyphicon glyphicon-chevron-right pull-right"></span>
+          </li>
+        </Link>
+    )}
+    </ul>
+  )
+}
 class PagesContainer extends Component {
 
   componentDidMount() {
