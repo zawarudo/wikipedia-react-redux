@@ -5,10 +5,10 @@ $vin-red: #ff0000;
 
 /* Styles */
 body {
+  background: #f1f1f1;
   font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
   line-height: 1.4em;
   color: #4d4d4d;
-  margin: 0 auto;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   font-smoothing: antialiased;
@@ -27,3 +27,32 @@ h2 {
 .loss { color: $vin-red; }
 input.small { width: 46px; }
 td.fuel-savings-label { width: 175px; }
+
+.glyphicon-refresh-animate {
+    -animation: spin .7s infinite linear;
+    -webkit-animation: spin2 .7s infinite linear;
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}
+
+.detail-page {
+  margin-bottom: 50px;
+
+  .detail-img-container {
+    min-height: 200px;
+  }
+  .categories-container {
+    .category-item {
+      margin: 10px 0px;
+    }
+  }
+
+}

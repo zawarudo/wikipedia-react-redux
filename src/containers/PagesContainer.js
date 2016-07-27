@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { requestPages, invalidatePages } from '../actions/actions.js';
 import { Link } from 'react-router';
@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 const renderPages = (pages = []) => pages.map(
   page =>
     <div key={page.id}>
-      <Link to={{ pathname: `pages/${page.id}` }}>
+      <Link to={{ pathname: `page/${page.id}` }}>
         {page.title ? page.title : 'page'}
       </Link>
     </div>
@@ -37,8 +37,15 @@ class PagesContainer extends Component {
   }
 }
 
+PagesContainer.PropTypes = {
+  wikiPages: React.PropTypes.shape({
+    pages: React.PropTypes.array.isRequired
+  }),
+  dispatch: PropTypes.func.isRequired
+}
+
 const mapStateToProps = (state) => ({
   wikiPages: state.wikiPages
-});
+})
 
 export default connect(mapStateToProps)(PagesContainer);

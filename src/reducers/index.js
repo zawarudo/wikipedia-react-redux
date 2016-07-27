@@ -1,10 +1,14 @@
- import { combineReducers } from 'redux';
- import { routerReducer } from 'react-router-redux';
- import wikiPages from './wikiPages.js';
+import { combineReducers } from 'redux';
+import { routerReducer } from 'react-router-redux';
+import wikiPages from './wikiPages';
+import pageDetail from './pageDetail';
+import bookmarks from './bookmarks';
 
- const rootReducer = combineReducers({
+const rootReducer = combineReducers({
   routing: routerReducer,
-  wikiPages
- });
+  wikiPages,
+  pageDetail,
+  bookmarks
+});
 
- export default rootReducer;
+export default rootReducer;

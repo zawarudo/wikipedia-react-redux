@@ -9,8 +9,7 @@ import rootReducer from '../reducers';
 export default function configureStore(initialState) {
   const logger = createLogger();
   const middlewares = [
-    thunk,
-    logger
+    thunk
   ];
 
   const store = createStore(rootReducer, initialState, compose(
