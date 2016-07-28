@@ -26,15 +26,16 @@ const PageDetail = (props) => {
           >
           {image.title}
         </span>
-        { image.imageinfo ?
-        <div className="well col-xs-12 detail-img">
-          <a href={image.imageinfo.url} target="_blank">
-            <img
-              className="img-responsive center-block detail-img"
-              src={image.imageinfo.thumburl}
-              alt={image.title} />
-          </a>
-        </div>
+        {
+        image.imageinfo ?
+          <div className="well col-xs-12 detail-img">
+            <a href={image.imageinfo.url} target="_blank">
+              <img
+                className="img-responsive center-block detail-img"
+                src={image.imageinfo.thumburl}
+                alt={image.title} />
+            </a>
+          </div>
         :
           undefined
         }
