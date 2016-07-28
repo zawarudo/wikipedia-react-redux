@@ -43,6 +43,47 @@ export const getInfoByPageID = (pageID, propsList = ['info','images','categories
     });
 }
 
+export const getInfoByPageTitles = (titles, propsList = ['info','images','categories']) => {
+  if(!titles) {
+    throw new Error('Invalid request, missing list of titles')
+  }
+
+  const prop = toAPICompliantListFromArray(propsList);
+
+  const getListOfTitles = (pages) => pages.reduce((prev, curr) => [...prev,curr.title]);
+
+  const slicePages = (json) => json.query.pages;
+
+  const stripCategoryTags = (json) => ({
+    ...json,
+    categories: json.categories.map(category => ({
+      ...category,
+      title: category.title.replace(/^Category:/, '')
+    }))
+  });
+
+  let titlesQuery;
+
+  if(titles.length == 1) {
+    titlesQuery = titles;
+  } else {
+    let titlesArr = getListOfTitles(titles);
+    const dirtyQuery = toAPICompliantListFromArray(titlesArr);
+    titlesQuery = encodeURI(dirtyQuery);
+  }
+
+  const request = `${BASEURL}&prop=${prop}&inprop=url&format=${FORMAT}&titles=${titlesQuery}`;
+
+  return fetchJsonp(request)
+    .then(req => req.json())
+    .then(json => slicePages(json))
+    .then(json => objToArr(json))
+    .catch(function(e) {
+      console.error(e);
+      throw new Error('Wikipedia API Failure');
+    });
+}
+
 // Replaces images array on the detail page data
 export const hydrateDetailPageImages = (titlesToFetch, detailPage) => {
   return getImageInfoByTitles(titlesToFetch).then((imagesObj) => {
@@ -84,6 +125,23 @@ export const getImageInfoByTitles = (titlesList, imgWidth = 250) => {
     });
 }
 
+export const getTitleListBySearch = (searchTerm) => {
+  const encodedTerm = encodeURI(searchTerm);
+
+  const request = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodedTerm}&format=${FORMAT}`;
+  const slicePages = (json) => json.query.search;
+
+  return fetchJsonp(request)
+    .then(req => req.json())
+    .then(json => slicePages(json))
+    .catch(function(e) {
+      console.error(e);
+      throw new Error('Wikipedia Search API Failure');
+    });
+}
+
 const toAPICompliantListFromArray = (arr) => {
   return arr.reduce((str, curr) => str + '|' + curr);
 }
+
+const objToArr = (obj) => Object.keys(obj).map(key => obj[key]);
