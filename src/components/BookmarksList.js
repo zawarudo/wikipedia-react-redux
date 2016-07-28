@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router';
 import List from './List';
 
 const BookmarksList = (props) => {
