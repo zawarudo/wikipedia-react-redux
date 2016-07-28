@@ -45,7 +45,7 @@ class PagesContainer extends Component {
             <h4>OR</h4>
             <button
               className="btn btn-primary"
-              onClick={() => dispatch(invalidatePages())}
+              onClick={() => dispatch(refreshPages())}
             >
               Get Random Pages
             </button>
