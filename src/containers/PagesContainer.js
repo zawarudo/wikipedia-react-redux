@@ -52,7 +52,7 @@ class PagesContainer extends Component {
           </div>
         </div>
         <div className="row">
-          <div className="pages-container">
+          <div className="pages-container col-xs-12 col-md-8 col-md-offset-2">
             <List items={modifyPagesToList(wikiPages)}/>
           </div>
         </div>
