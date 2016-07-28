@@ -11,8 +11,18 @@ export const UNSET_DETAIL_PAGE = 'UNSET_DETAIL_PAGE';
 export const SET_BOOKMARK = 'SET_BOOKMARK';
 export const UNSET_BOOKMARK = 'UNSET_BOOKMARK';
 
+export const REQUEST_SEARCH_RESULTS = 'REQUEST_SEARCH_RESULTS';
+export const RECEIVE_SEARCH_RESULTS = 'RECEIVE_SEARCH_RESULTS';
+export const INVALIDATE_SEARCH_RESULTS = 'INVALIDATE_SEARCH_RESULTS';
+
 import { Promise } from 'es6-promise';
-import { fetchRandomPages, getInfoByPageID, hydrateDetailPageImages } from '../utils/Wikipedia_API';
+import {
+          fetchRandomPages,
+          getInfoByPageID,
+          getInfoByPageTitles,
+          hydrateDetailPageImages,
+          getTitleListBySearch
+      } from '../utils/Wikipedia_API';
 
 export function requestPages() {
   return (dispatch) => {
@@ -23,6 +33,18 @@ export function requestPages() {
     dispatch(action);
     getPages()
       .then((json) => dispatch(receivePages(json)));
+  }
+}
+
+export function refreshPages() {
+  return (dispatch) => {
+    const action = {
+      type: REFRESH_PAGES
+    };
+
+    dispatch(action);
+    dispatch(invalidatePages());
+    dispatch(requestPages());
   }
 }
 
@@ -43,7 +65,6 @@ export function invalidatePages() {
 
     dispatch(action);
     localStorage.setItem('pages', "");
-    dispatch(requestPages());
   }
 }
 
@@ -187,6 +208,61 @@ export function unsetBookmark(page) {
     const action = {
       type: UNSET_BOOKMARK,
       page,
+    };
+
+    dispatch(action);
+  }
+}
+
+export function requestSearchResults(searchTerm) {
+  return (dispatch) => {
+    const action = {
+      type: REQUEST_SEARCH_RESULTS,
+      searchTerm
+    };
+
+    dispatch(action);
+  }
+}
+
+export function wikiSearch(searchTerm) {
+  return (dispatch) => {
+
+    dispatch(requestSearchResults(searchTerm));
+
+    return getTitleListBySearch(searchTerm)
+      .then((titleList) =>
+        getInfoByPageTitles(titleList)
+      )
+      .then((results) => {
+        const setID = (page) => ({ ...page, id: page.pageid });
+        const normalizedResults = results.map(setID);
+        return normalizedResults;
+      })
+      .then((normalizedResults) => {
+        dispatch(receiveSearchResults(normalizedResults));
+        dispatch(invalidatePages());
+        dispatch(receivePages(normalizedResults))
+      });
+
+  }
+}
+
+export function receiveSearchResults(results) {
+  return (dispatch) => {
+    const action = {
+      type: RECEIVE_SEARCH_RESULTS,
+      results
+    };
+
+    dispatch(action);
+  }
+}
+
+export function invalidateSearchResults() {
+  return (dispatch) => {
+    const action = {
+      type: INVALIDATE_SEARCH_RESULTS
     };
 
     dispatch(action);
