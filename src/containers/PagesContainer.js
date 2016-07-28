@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { requestPages, refreshPages, invalidatePages, wikiSearch } from '../actions/actions';
+import { requestPages, refreshPages, wikiSearch } from '../actions/actions';
 import List from '../components/List';
 import SearchForm from '../containers/SearchForm';
 
@@ -23,7 +23,7 @@ class PagesContainer extends Component {
       // Set content param
       const content = (page) => ({ ...page, content: page.title });
 
-      const postItemsCreator = (item) => (
+      const postItemsCreator = () => (
         <span className="glyphicon glyphicon-chevron-right pull-right"></span>
       );
 

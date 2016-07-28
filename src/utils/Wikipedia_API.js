@@ -54,14 +54,6 @@ export const getInfoByPageTitles = (titles, propsList = ['info','images','catego
 
   const slicePages = (json) => json.query.pages;
 
-  const stripCategoryTags = (json) => ({
-    ...json,
-    categories: json.categories.map(category => ({
-      ...category,
-      title: category.title.replace(/^Category:/, '')
-    }))
-  });
-
   let titlesQuery;
 
   if(titles.length == 1) {
