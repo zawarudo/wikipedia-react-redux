@@ -4,8 +4,8 @@ import LoadingSpinner from './LoadingSpinner';
 
 const List = (props) => {
   const { items, postItems } = props;
-  if(!items || !items.length) { return <LoadingSpinner />; }
 
+  if(!items || !items.length) { return <LoadingSpinner />; }
   return (
     <ul className="list-group center-block">
       {items.map(

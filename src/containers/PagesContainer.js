@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { requestPages, invalidatePages } from '../actions/actions';
+import { requestPages, refreshPages, invalidatePages, wikiSearch } from '../actions/actions';
 import List from '../components/List';
+import SearchForm from '../containers/SearchForm';
 
 class PagesContainer extends Component {
 
@@ -40,16 +41,18 @@ class PagesContainer extends Component {
         <hr />
         <div className="row">
           <div className="col-xs-12 center-block">
+            <SearchForm onSubmit={(input) => {dispatch(wikiSearch(input.searchTerm))}}/>
+            <h4>OR</h4>
             <button
               className="btn btn-primary"
-              onClick={() => dispatch(invalidatePages())}
+              onClick={() => dispatch(refreshPages())}
             >
               Get Random Pages
             </button>
           </div>
         </div>
         <div className="row">
-          <div className="pages-container">
+          <div className="pages-container col-xs-12 col-md-8 col-md-offset-2">
             <List items={modifyPagesToList(wikiPages)}/>
           </div>
         </div>
@@ -66,7 +69,8 @@ PagesContainer.PropTypes = {
 }
 
 const mapStateToProps = (state) => ({
-  wikiPages: state.wikiPages
+  wikiPages: state.wikiPages,
+  search: state.search
 })
 
 export default connect(mapStateToProps)(PagesContainer);
